@@ -193,8 +193,13 @@ def display_differences(image,
     captions = ["" for m in gt_match] + ["{:.2f} / {:.2f}".format(
         pred_score[i],
         (overlaps[i, int(pred_match[i])]
-            if pred_match[i] > -1 else overlaps[i].max()))
+            if pred_match[i] > -1 else overlaps[i].max() if len(overlaps[i])>0 else 0))
             for i in range(len(pred_match))]
+    # captions = ["" for m in gt_match] + ["{:.2f} / {:.2f}".format(
+    #     pred_score[i],
+    #     (overlaps[i, int(pred_match[i])]
+    #      if pred_match[i] > -1 else overlaps[i].max()))
+    #     for i in range(len(pred_match))]
     # Set title if not provided
     title = title or "Ground Truth and Detections\n GT=green, pred=red, captions: score/IoU"
     # Display
